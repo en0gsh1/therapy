@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Appointment - PhysioCare</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #4CAF50;
+            --accent-color: #2E7D32;
+            --text-color: #333;
+            --background-color: #f5f5f5;
+            --card-background: #fff;
+            --shadow: 0 5px 15px rgba(0,0,0,0.1);
+            --transition: all 0.3s ease;
+        }
+        
+        body {
+            font-family: 'Roboto', Arial, sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--background-color);
+            margin: 0;
+            padding: 0;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        
+        .page-banner {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 3rem 0;
+            text-align: center;
+        }
+        
+        .page-banner h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .appointment-section {
+            padding: 5rem 0;
+        }
+        
+        .appointment-form-container {
+            background-color: var(--card-background);
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: var(--shadow);
+        }
+        
+        .appointment-form-container h2 {
+            color: var(--primary-color);
+            margin-bottom: 2rem;
+            font-size: 2rem;
+            text-align: center;
+        }
+        
+        .appointment-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+        
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .form-group label {
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+        
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            padding: 0.8rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+        
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 2px rgba(76, 175, 80, 0.2);
+            outline: none;
+        }
+        
+        .time-slots {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 0.5rem;
+            margin-top: 0.5rem;
+        }
+        
+        .time-slot {
+            position: relative;
+        }
+        
+        .time-slot input[type="radio"] {
+            position: absolute;
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+        
+        .time-slot label {
+            display: block;
+            padding: 0.5rem;
+            text-align: center;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .time-slot input[type="radio"]:checked + label {
+            background-color: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+        }
+        
+        .time-slot input[type="radio"]:disabled + label {
+            background-color: #f0f0f0;
+            color: #999;
+            border-color: #ddd;
+            cursor: not-allowed;
+            text-decoration: line-through;
+        }
+        
+        .submit-btn-container {
+            display: flex;
+            justify-content: center;
+            margin-top: 1rem;
+        }
+        
+        .submit-btn {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 30px;
+            padding: 1rem 2.5rem;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+        
+        .submit-btn:hover {
+            background-color: var(--accent-color);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .submit-btn:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+        
+        .message {
+            padding: 1rem;
+            border-radius: 5px;
+            margin-top: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .success-message {
+            background-color: #d4edda;
+            color: #155724;
+        }
+        
+        .error-message {
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+        
+        @media (max-width: 768px) {
+            .time-slots {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .time-slots {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .appointment-form-container {
+                padding: 1.5rem;
+            }
+            
+            .submit-btn {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="page-banner">
+        <h1>Book an Appointment</h1>
+        <p>Schedule your physiotherapy session with our experts</p>
+    </div>
+
+    <section class="appointment-section">
+        <div class="container">
+            <div class="appointment-form-container">
+                <h2>Book Your Appointment</h2>
+                
+                <form id="appointmentForm" class="appointment-form">
+                    <div class="form-group">
+                        <label for="name">Full Name*</label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="email">Email*</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="phone">Phone*</label>
+                        <input type="tel" id="phone" name="phone" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="service">Service*</label>
+                        <select id="service" name="service" required>
+                            <option value="">Select a service</option>
+                            <option value="Sports Physiotherapy">Sports Physiotherapy</option>
+                            <option value="Post-Surgery Rehabilitation">Post-Surgery Rehabilitation</option>
+                            <option value="Chronic Pain Management">Chronic Pain Management</option>
+                            <option value="Neurological Rehabilitation">Neurological Rehabilitation</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="therapist">Preferred Therapist</label>
+                        <select id="therapist" name="therapist">
+                            <option value="">No preference</option>
+                            <option value="Dr. Sarah Johnson">Dr. Sarah Johnson</option>
+                            <option value="Dr. Michael Chen">Dr. Michael Chen</option>
+                            <option value="Dr. Emily Rodriguez">Dr. Emily Rodriguez</option>
+                            <option value="Dr. David Kim">Dr. David Kim</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="date">Appointment Date*</label>
+                        <input type="date" id="date" name="date" required min="" onchange="checkAvailableTimeSlots()">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Available Time Slots*</label>
+                        <div class="time-slots" id="timeSlots">
+                            <p>Please select a date first</p>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="notes">Additional Notes</label>
+                        <textarea id="notes" name="notes" rows="3"></textarea>
+                    </div>
+                    
+                    <div class="submit-btn-container">
+                        <button type="submit" class="submit-btn" id="submitBtn" disabled>Book Appointment</button>
+                    </div>
+                </form>
+                
+                <div id="message" style="display: none;"></div>
+            </div>
+        </div>
+    </section>
+    <section class="faq-section">
+        <div class="faq-container">
+            <h2 class="section-title">Frequently Asked Questions</h2>
+            
+            <div class="faq-grid">
+                <div class="faq-item fade-in">
+                    <div class="faq-question">
+                        <h3>How long is a typical physiotherapy session?</h3>
+                        <span class="faq-toggle"><i class="fas fa-plus"></i></span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Our standard physiotherapy sessions are 45-60 minutes long. The first appointment may be slightly longer (up to 75 minutes) as it includes a comprehensive assessment of your condition.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item fade-in">
+                    <div class="faq-question">
+                        <h3>What should I wear to my appointment?</h3>
+                        <span class="faq-toggle"><i class="fas fa-plus"></i></span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Please wear comfortable, loose-fitting clothing that allows easy access to the area requiring treatment. For lower limb issues, shorts are recommended. For upper body issues, tank tops or t-shirts are suitable.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item fade-in">
+                    <div class="faq-question">
+                        <h3>Do I need a doctor's referral?</h3>
+                        <span class="faq-toggle"><i class="fas fa-plus"></i></span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>No, you don't need a doctor's referral to book an appointment with us. However, if you have a referral or any medical reports, please bring them to your appointment as they can be helpful for your treatment plan.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item fade-in">
+                    <div class="faq-question">
+                        <h3>How many sessions will I need?</h3>
+                        <span class="faq-toggle"><i class="fas fa-plus"></i></span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>The number of sessions varies depending on your condition, its severity, and how your body responds to treatment. After your initial assessment, your physiotherapist will provide a recommended treatment plan with an estimated number of sessions.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item fade-in">
+                    <div class="faq-question">
+                        <h3>What payment methods do you accept?</h3>
+                        <span class="faq-toggle"><i class="fas fa-plus"></i></span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>We accept cash, credit/debit cards, and most major insurance plans. Payment is due at the time of service. Please check with your insurance provider regarding coverage for physiotherapy services.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item fade-in">
+                    <div class="faq-question">
+                        <h3>What is your cancellation policy?</h3>
+                        <span class="faq-toggle"><i class="fas fa-plus"></i></span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>We require 24 hours' notice for cancellations. Late cancellations or no-shows may be subject to a fee of 50% of the appointment cost. We understand that emergencies happen, so please contact us as soon as possible if you need to reschedule.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="footer-shapes">
+            <div class="footer-shape footer-shape-1"></div>
+            <div class="footer-shape footer-shape-2"></div>
+            <div class="footer-shape footer-shape-3"></div>
+        </div>
+        <div class="footer-content">
+            <div class="footer-section">
+                <div class="footer-logo">PhysioCare</div>
+                <p>Professional physiotherapy services helping you recover faster and move better. Our team of experts is dedicated to providing personalized care for all your needs.</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+            
+            
+            
+            <div class="footer-section">
+                <h3>Our Services</h3>
+                <div class="footer-links">
+                    <a href="services.html"><i class="fas fa-chevron-right"></i> Sports Physiotherapy</a>
+                    <a href="services.html"><i class="fas fa-chevron-right"></i> Post-Surgery Rehab</a>
+                    <a href="services.html"><i class="fas fa-chevron-right"></i> Chronic Pain Management</a>
+                    <a href="services.html"><i class="fas fa-chevron-right"></i> Neurological Rehabilitation</a>
+                    <a href="services.html"><i class="fas fa-chevron-right"></i> Pediatric Physiotherapy</a>
+                </div>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Contact Info</h3>
+                <div class="footer-contact">
+                    <p><i class="fas fa-map-marker-alt"></i> Rifat Burdzeviç, Prishtina, Kosovo 10000</p>
+                    <p><i class="fas fa-phone-alt"></i> +38345646464</p>
+                    <p><i class="fas fa-envelope"></i> info@physiocare.com</p>
+                    <p><i class="fas fa-clock"></i> Mon-Fri: 8:00 AM - 7:00 PM</p>
+                </div>
+                
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2025 PhysioCare. All rights reserved. | Designed with <i class="fas fa-heart" style="color: #ff6b6b;"></i> by PhysioCare Team</p>
+        </div>
+    </footer>
+
+    <script>
+        // Store booked appointments in localStorage for demo purposes
+        if (!localStorage.getItem('bookedAppointments')) {
+            localStorage.setItem('bookedAppointments', JSON.stringify({}));
+        }
+        
+        // Set minimum date to today
+        document.addEventListener('DOMContentLoaded', function() {
+            const dateInput = document.getElementById('date');
+            const today = new Date();
+            const yyyy = today.getFullYear();
+            const mm = String(today.getMonth() + 1).padStart(2, '0');
+            const dd = String(today.getDate()).padStart(2, '0');
+            
+            dateInput.min = `${yyyy}-${mm}-${dd}`;
+        });
+        
+        // Function to check available time slots
+        function checkAvailableTimeSlots() {
+            const date = document.getElementById('date').value;
+            const timeSlotsContainer = document.getElementById('timeSlots');
+            const submitBtn = document.getElementById('submitBtn');
+            
+            if (!date) {
+                timeSlotsContainer.innerHTML = '<p>Please select a date first</p>';
+                submitBtn.disabled = true;
+                return;
+            }
+            
+            // Show loading message
+            timeSlotsContainer.innerHTML = '<p>Loading available time slots...</p>';
+            
+            // Get booked appointments from localStorage
+            const bookedAppointments = JSON.parse(localStorage.getItem('bookedAppointments'));
+            const bookedSlots = bookedAppointments[date] || [];
+            
+            // Check if the date is in the past
+            const today = new Date();
+            today.setHours(0, 0, 0, 0);
+            const selectedDate = new Date(date);
+            selectedDate.setHours(0, 0, 0, 0);
+            
+            if (selectedDate < today) {
+                timeSlotsContainer.innerHTML = '<p class="error-message">Cannot book appointments in the past</p>';
+                submitBtn.disabled = true;
+                return;
+            }
+            
+            // Check if the date is a Sunday (assuming clinic is closed on Sundays)
+            const dayOfWeek = selectedDate.getDay();
+            if (dayOfWeek === 0) { // 0 = Sunday
+                timeSlotsContainer.innerHTML = '<p class="error-message">We are closed on Sundays. Please select another day.</p>';
+                submitBtn.disabled = true;
+                return;
+            }
+            
+            // Generate time slots
+            const timeSlots = [
+                '09:00', '10:00', '11:00', '12:00',
+                '13:00', '14:00', '15:00', '16:00',
+                '17:00', '18:00'
+            ];
+            
+            // If it's Saturday, only show morning slots
+            const isSaturday = (dayOfWeek === 6);
+            const availableSlots = isSaturday ? 
+                timeSlots.filter(time => parseInt(time.split(':')[0]) < 14) : // Before 2 PM
+                timeSlots;
+            
+            let html = '';
+            let anyAvailable = false;
+            
+            availableSlots.forEach(time => {
+                const isBooked = bookedSlots.includes(time);
+                const disabled = isBooked ? 'disabled' : '';
+                
+                if (!isBooked) anyAvailable = true;
+                
+                html += `
+                    <div class="time-slot">
+                        <input type="radio" id="time-${time}" name="time" value="${time}" ${disabled} required>
+                        <label for="time-${time}">${time}</label>
+                    </div>
+                `;
+            });
+            
+            timeSlotsContainer.innerHTML = html;
+            submitBtn.disabled = !anyAvailable;
+            
+            if (!anyAvailable) {
+                timeSlotsContainer.innerHTML += '<p class="error-message">No available time slots for this date. Please select another date.</p>';
+            }
+        }
+        
+        // Form submission handler
+        document.getElementById('appointmentForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const submitBtn = document.getElementById('submitBtn');
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Booking...';
+            
+            // Get form data
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const phone = document.getElementById('phone').value;
+            const service = document.getElementById('service').value;
+            const therapist = document.getElementById('therapist').value;
+            const date = document.getElementById('date').value;
+            const selectedTimeInput = document.querySelector('input[name="time"]:checked');
+            
+            if (!selectedTimeInput) {
+                alert('Please select a time slot');
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'Book Appointment';
+                return;
+            }
+            
+            const time = selectedTimeInput.value;
+            
+            // Get booked appointments from localStorage
+            const bookedAppointments = JSON.parse(localStorage.getItem('bookedAppointments'));
+            
+            // Check if the slot is still available
+            if (!bookedAppointments[date]) {
+                bookedAppointments[date] = [];
+            }
+            
+            if (bookedAppointments[date].includes(time)) {
+                // Slot was booked by someone else
+                const messageDiv = document.getElementById('message');
+                messageDiv.className = 'message error-message';
+                messageDiv.innerHTML = '<i class="fas fa-exclamation-circle"></i> This time slot has just been booked by someone else. Please select another time.';
+                messageDiv.style.display = 'block';
+                
+                // Re-check available slots
+                checkAvailableTimeSlots();
+                
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'Book Appointment';
+                return;
+            }
+            
+            // Book the slot
+            bookedAppointments[date].push(time);
+            localStorage.setItem('bookedAppointments', JSON.stringify(bookedAppointments));
+            
+            // Show success message
+            const messageDiv = document.getElementById('message');
+            messageDiv.className = 'message success-message';
+            messageDiv.innerHTML = `
+                <i class="fas fa-check-circle"></i>
+                Your appointment has been booked successfully!<br>
+                <strong>Date:</strong> ${new Date(date).toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}<br>
+                <strong>Time:</strong> ${time}<br>
+                <strong>Service:</strong> ${service}<br>
+                ${therapist ? `<strong>Therapist:</strong> ${therapist}<br>` : ''}
+                <br>
+                A confirmation email would be sent to ${email} in a real application.
+            `;
+            messageDiv.style.display = 'block';
+            
+            // Reset form
+            document.getElementById('appointmentForm').reset();
+            document.getElementById('timeSlots').innerHTML = '<p>Please select a date first</p>';
+            
+            // Reset button
+            submitBtn.disabled = false;
+            submitBtn.textContent = 'Book Appointment';
+            
+            // Scroll to message
+            messageDiv.scrollIntoView({ behavior: 'smooth' });
+        });
+    </script>
+</body>
+</html>

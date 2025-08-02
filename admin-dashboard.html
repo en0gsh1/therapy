@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - PhysioCare</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="admin.css">
+</head>
+<body>
+    <header class="admin-header">
+        <div class="admin-nav">
+            <div class="admin-logo">
+               <a href="index.html"> <img src="images/d830295dd625e13dc5997190fc42fae7-removebg-preview (1).png" alt="therapy logo" class="logo-image"></a>
+                <span>Admin Dashboard</span>
+            </div>
+            <div class="admin-controls">
+                <div class="admin-user">
+                    <i class="fas fa-user-shield"></i>
+                    <span>Administrator</span>
+                </div>
+                <a href="admin-login.html" class="logout-btn">
+                    <i class="fas fa-sign-out-alt"></i> Logout
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Admin Sidebar -->
+<div class="admin-sidebar" id="adminSidebar">
+    <ul class="admin-menu">
+        <li class="active">
+            <a href="#appointments">
+                <i class="fas fa-calendar-check"></i>
+                <span>Appointments</span>
+            </a>
+        </li>
+        <li>
+            <a href="#patients">
+                <i class="fas fa-users"></i>
+                <span>Patients</span>
+            </a>
+        </li>
+        <li>
+            <a href="#therapists">
+                <i class="fas fa-user-md"></i>
+                <span>Therapists</span>
+            </a>
+        </li>
+        <li>
+            <a href="#settings">
+                <i class="fas fa-cog"></i>
+                <span>Settings</span>
+            </a>
+        </li>
+    </ul>
+</div>
+
+<!-- Admin Dashboard - Appointments Section -->
+<div class="admin-section" id="appointments-section">
+    <div class="section-header">
+        <h2>Appointment Management</h2>
+        <div class="section-actions">
+            <div class="search-box">
+                <input type="text" placeholder="Search appointments..." id="appointmentSearch">
+                <i class="fas fa-search"></i>
+            </div>
+            <button class="action-btn" id="newAppointmentBtn">
+                <i class="fas fa-plus"></i> New Appointment
+            </button>
+        </div>
+    </div>
+
+    <!-- Appointment Filters -->
+    <div class="appointment-filters">
+        <button class="filter-btn active" data-filter="all">All</button>
+        <button class="filter-btn" data-filter="pending">Pending Approval</button>
+        <button class="filter-btn" data-filter="confirmed">Confirmed</button>
+        <button class="filter-btn" data-filter="cancelled">Cancelled</button>
+        <button class="filter-btn" data-filter="completed">Completed</button>
+    </div>
+
+    <!-- Pending Approvals Alert -->
+    <div class="pending-alert" id="pendingAlert">
+        <i class="fas fa-exclamation-circle"></i>
+        <span id="pendingCount">0</span> appointments require your approval
+    </div>
+
+    <!-- Appointments Table -->
+    <div class="appointments-table-container">
+        <table class="appointments-table">
+            <thead>
+                <tr>
+                    <th>Patient Name</th>
+                    <th>Date</th>
+                    <th>Time</th>
+                    <th>Service</th>
+                    <th>Therapist</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody id="appointmentsTableBody">
+                <!-- Appointments will be loaded here by JavaScript -->
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Empty State (shown when no appointments match the filter) -->
+    <div class="empty-state" id="emptyState" style="display: none;">
+        <i class="fas fa-calendar-times"></i>
+        <p>No appointments found</p>
+    </div>
+
+    <!-- Pagination -->
+    <div class="pagination">
+        <button class="pagination-btn" id="prevPage" disabled><i class="fas fa-chevron-left"></i></button>
+        <div id="paginationNumbers"></div>
+        <button class="pagination-btn" id="nextPage"><i class="fas fa-chevron-right"></i></button>
+    </div>
+</div>
+<!-- Refusal Modal -->
+<div class="modal" id="refusalModal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2>Refuse Appointment</h2>
+            <span class="close-modal" id="closeRefusalModal">×</span>
+        </div>
+        <div class="modal-body">
+            <p>You are about to refuse the appointment request from <strong id="refusalPatientName">Patient Name</strong>.</p>
+            
+            <div class="refusal-reason">
+                <label for="refusalReason">Reason for refusal (will be sent to the patient):</label>
+                <textarea id="refusalReason" placeholder="Please provide a reason for refusing this appointment..."></textarea>
+            </div>
+            
+            <div class="form-actions">
+                <button type="button" class="cancel-btn" id="cancelRefusal">Cancel</button>
+                <button type="button" class="save-btn" id="confirmRefusal">Confirm Refusal</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+    <script src="script.js"></script>
+    <script src="admin.js"></script>
+</body>
+</html>

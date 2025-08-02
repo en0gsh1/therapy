@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PhysioCare - Home</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+<!-- Swiper.js CSS -->
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+
+
+</head>
+<body>
+    <header class="header">
+    <nav class="nav">
+        
+        <div class="logo">
+            <a href="index.html">
+            <img src="images/d830295dd625e13dc5997190fc42fae7-removebg-preview (1).png" alt="therapy logo" class="logo-image"></a>
+        </div>
+        
+        <div class="nav-links" id="navLinks">
+            <a href="index.html" class="nav-item">Home</a>
+            <a href="services.html" class="nav-item">Services</a>
+            <a href="about.html" class="nav-item">About</a>
+            <a href="contact.html" class="nav-item">Contact</a>
+            <a href="appointment.html" class="appointment-button">Book Appointment</a>
+        </div>
+        <div class="menu-toggle" id="menuToggle">
+            <i class="fas fa-bars"></i>
+        </div>
+    </nav>
+</header>
+<section class="hero" id="home">
+    <div class="hero-content">
+        <div class="hero-text">
+            <h1>Recover Faster, Move Better</h1>
+            <p>Professional physiotherapy services for all your needs</p>
+            <div class="cta-container">
+                <a href="appointment.html" class="cta-button">Book Appointment</a>
+            </div>
+        </div>
+    </div>
+    <div class="hero-shapes">
+        <div class="shape shape-1"></div>
+        <div class="shape shape-2"></div>
+        <div class="shape shape-3"></div>
+    </div>
+</section>
+
+
+
+    <section class="featured-services">
+        <h2 class="section-title">Our Specialties</h2>
+        <div class="wave-divider">
+
+        </div>
+        <div class="services-grid">
+            <div class="service-card fade-in">
+                <div class="service-icon">
+                    <i class="fas fa-running"></i>
+                </div>
+                <h3>Sports Physiotherapy</h3>
+                <p>Specialized treatment for sports injuries and performance enhancement.</p>
+                <a href="services.html" class="service-link">Learn More</a>
+            </div>
+            <div class="service-card fade-in">
+                <div class="service-icon">
+                    <i class="fas fa-hospital"></i>
+                </div>
+                <h3>Post-Surgery Rehab</h3>
+                <p>Comprehensive rehabilitation programs after surgery.</p>
+                <a href="services.html" class="service-link">Learn More</a>
+            </div>
+            <div class="service-card fade-in">
+                <div class="service-icon">
+                    <i class="fas fa-heartbeat"></i>
+                </div>
+                <h3>Chronic Pain Management</h3>
+                <p>Effective strategies to manage and eliminate chronic pain.</p>
+                <a href="services.html" class="service-link">Learn More</a>
+            </div>
+        </div>
+    </section>
+<!-- Gallery Section with Slider -->
+<section class="gallery-section" id="gallery">
+    <div class="container">
+        <h2 class="section-title">Our Gallery</h2>
+        
+        <div class="gallery-slider-container">
+            <div class="gallery-slider" id="gallerySlider">
+                <!-- First Slide (First 4 Images) -->
+                <div class="gallery-slide active">
+                    <div class="gallery-grid">
+                        <div class="gallery-item">
+    <img src="images/facility.jpg" alt="Physiotherapy facility">
+    <div class="gallery-caption"><h3>Modern Facility</h3></div>
+</div>
+<!-- Gallery Item 2 -->
+<div class="gallery-item">
+    <img src="images/Untitled design.png" alt="Treatment session">
+    <div class="gallery-caption"><h3>Professional Care</h3></div>
+</div>
+<!-- Gallery Item 3 -->
+<div class="gallery-item">
+    <img src="images/pun.jpg" alt="Rehabilitation equipment">
+    <div class="gallery-caption"><h3>Modern Equipment</h3></div>
+</div>
+<!-- Gallery Item 4 -->
+<div class="gallery-item">
+    <img src="images/session.png" alt="Therapy session">
+    <div class="gallery-caption"><h3>Personalized Treatment</h3></div>
+</div>
+                    </div>
+                </div>
+                
+                <!-- Second Slide (Next 4 Images) -->
+                <div class="gallery-slide">
+                    <div class="gallery-grid">
+                        <div class="gallery-item hidden-item">
+    <img src="images/seeyuh.png" alt="Exercise therapy">
+    <div class="gallery-caption"><h3>Exercise Programs</h3></div>
+</div>
+<!-- Gallery Item 6 (in the hidden grid) -->
+<div class="gallery-item hidden-item">
+    <img src="images/fuh.png" alt="Manual therapy">
+    <div class="gallery-caption"><h3>Manual Therapy</h3></div>
+</div>
+<!-- Gallery Item 7 (in the hidden grid) -->
+<div class="gallery-item hidden-item">
+    <img src="images/Untitled design (1).png" alt="Patient consultation">
+    <div class="gallery-caption"><h3>Patient Consultation</h3></div>
+</div>
+<!-- Gallery Item 8 (in the hidden grid) -->
+<div class="gallery-item hidden-item">
+    <img src="images/9544e652-d41f-41d8-bef0-18a851d5d270_0.jpeg" alt="Recovery progress">
+    <div class="gallery-caption"><h3>Recovery Journey</h3></div>
+</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Slider Navigation -->
+            <div class="slider-navigation">
+                <button class="slider-dot active" data-slide="0"></button>
+                <button class="slider-dot" data-slide="1"></button>
+            </div>
+            
+            <!-- Slider Arrows -->
+            <button class="slider-arrow prev" id="prevSlide">
+                <i class="fas fa-chevron-left"></i>
+            </button>
+            <button class="slider-arrow next" id="nextSlide">
+                <i class="fas fa-chevron-right"></i>
+            </button>
+        </div>
+    </div>
+</section>
+
+
+
+    <section class="team-preview">
+        <h2 class="section-title">Meet Our Team</h2>
+        <div class="team-grid">
+            <div class="team-member slide-in-left">
+                <div class="member-photo"></div>
+                <h3>Zheraldin Derguri Prof.ass.Dr.Sci</h3>
+                <p>Head Physiotherapist</p>
+            </div>
+            <div class="team-member slide-in-bottom">
+                <div class="member-photo"></div>
+                <h3>Dr. Michael Chen</h3>
+                <p>Sports Specialist</p>
+            </div>
+            <div class="team-member slide-in-right">
+                <div class="member-photo"></div>
+                <h3>Dr. Emily Rodriguez</h3>
+                <p>Rehabilitation Expert</p>
+            </div>
+        </div>
+        <div class="view-all-container">
+        <a href="about.html" class="view-all-button">View All Team Members</a>
+    </div>
+    </section>
+
+    <section class="testimonials">
+        <h2 class="section-title">What Our Patients Say</h2>
+        <div class="testimonial-slider">
+            <div class="testimonial-card active">
+                <div class="quote-icon"><i class="fas fa-quote-left"></i></div>
+                <p>"After my knee surgery, I thought I'd never run again. Thanks to PhysioCare, I'm back to my marathon training!"</p>
+                <div class="testimonial-author">- James Wilson</div>
+            </div>
+            <div class="testimonial-card">
+                <div class="quote-icon"><i class="fas fa-quote-left"></i></div>
+                <p>"The chronic back pain I suffered for years is finally manageable. The team here is amazing!"</p>
+                <div class="testimonial-author">- Lisa Thompson</div>
+            </div>
+            <div class="testimonial-card">
+                <div class="quote-icon"><i class="fas fa-quote-left"></i></div>
+                <p>"Professional, caring, and effective. I recommend PhysioCare to all my athletic friends."</p>
+                <div class="testimonial-author">- Robert Davis</div>
+            </div>
+            <div class="slider-controls">
+                <button class="prev-btn"><i class="fas fa-chevron-left"></i></button>
+                <button class="next-btn"><i class="fas fa-chevron-right"></i></button>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="footer-shapes">
+            <div class="footer-shape footer-shape-1"></div>
+            <div class="footer-shape footer-shape-2"></div>
+            <div class="footer-shape footer-shape-3"></div>
+        </div>
+        <div class="footer-content">
+            <div class="footer-section">
+                <div class="footer-logo">PhysioCare</div>
+                <p>Professional physiotherapy services helping you recover faster and move better. Our team of experts is dedicated to providing personalized care for all your needs.</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+            
+            
+            
+            <div class="footer-section">
+                <h3>Our Services</h3>
+                <div class="footer-links">
+                    <a href="services.html"><i class="fas fa-chevron-right"></i> Sports Physiotherapy</a>
+                    <a href="services.html"><i class="fas fa-chevron-right"></i> Post-Surgery Rehab</a>
+                    <a href="services.html"><i class="fas fa-chevron-right"></i> Chronic Pain Management</a>
+                    <a href="services.html"><i class="fas fa-chevron-right"></i> Neurological Rehabilitation</a>
+                    <a href="services.html"><i class="fas fa-chevron-right"></i> Pediatric Physiotherapy</a>
+                </div>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Contact Info</h3>
+                <div class="footer-contact">
+                    <p><i class="fas fa-map-marker-alt"></i> Rifat Burdzeviç, Prishtina, Kosovo 10000</p>
+                    <p><i class="fas fa-phone-alt"></i> +38345646464</p>
+                    <p><i class="fas fa-envelope"></i> info@physiocare.com</p>
+                    <p><i class="fas fa-clock"></i> Mon-Fri: 8:00 AM - 7:00 PM</p>
+                </div>
+                
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2025 PhysioCare. All rights reserved. | Designed with <i class="fas fa-heart" style="color: #ff6b6b;"></i> by PhysioCare Team</p>
+        </div>
+    </footer>
+
+<!-- Chat Assistant -->
+<div class="therapy-chat-assistant" id="therapyChatAssistant">
+    <div class="therapy-chat-icon" id="therapyChatIcon">
+        <i class="fas fa-comment-medical"></i>
+        <span class="therapy-chat-notification">1</span>
+    </div>
+    
+    <div class="therapy-chat-window" id="therapyChatWindow">
+        <!-- Chat window content remains the same -->
+        <div class="therapy-chat-header">
+            <div class="therapy-chat-title">
+                <i class="fas fa-user-md"></i>
+                <span>Therapy Assistant</span>
+            </div>
+            <div class="therapy-chat-controls">
+                <button class="therapy-minimize-chat" id="therapyMinimizeChat">
+                    <i class="fas fa-minus"></i>
+                </button>
+                <button class="therapy-close-chat" id="therapyCloseChat">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+        </div>
+        
+        <div class="therapy-chat-messages" id="therapyChatMessages">
+            <div class="therapy-message therapy-assistant">
+                <div class="therapy-message-content">
+                    <p>Hello! I'm your Therapy Assistant. How can I help you with your physiotherapy needs today?</p>
+                </div>
+                <span class="therapy-message-time">Just now</span>
+            </div>
+        </div>
+        
+        <div class="therapy-chat-input">
+            <input type="text" id="therapyUserMessage" placeholder="Type your question here..." aria-label="Type your message">
+            <button id="therapySendMessage">
+                <i class="fas fa-paper-plane"></i>
+            </button>
+        </div>
+        
+        <div class="therapy-chat-suggestions">
+            <button class="therapy-suggestion-btn">Book an appointment</button>
+            <button class="therapy-suggestion-btn">Common exercises</button>
+            <button class="therapy-suggestion-btn">Pain management</button>
+        </div>
+    </div>
+</div>
+
+<!-- Theme Toggle Button -->
+<div class="theme-toggle" id="themeToggle">
+    <i class="fas fa-moon"></i>
+</div>
+
+</div>
+
+
+
+    <script src="script.js"></script>
+<!-- Swiper.js -->
+<script src="https://unpkg.com/swiper@8/swiper-bundle.min.js"></script>
+
+</body>
+</html>
